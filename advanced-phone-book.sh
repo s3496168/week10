@@ -16,7 +16,7 @@ if ! [[ -f "$FILE" ]] ; then
 menu(){
     $CLEAR
     $PRINTF "\n"
-    $PRINTF "****Phone booh menu****\n"
+    $PRINTF "****Phone book menu****\n"
     $PRINTF "\n"
     $PRINTF " 1) Add a person\n"
     $PRINTF " 2) Search for a person\n"
@@ -65,18 +65,16 @@ while [ $QUIT -eq 0 ] ; do
             $PRINTF "Please enter the first letter of the name you wish to search for: \n"
             read -r SEARCH
             ###################It starts not not work here################
-            $PRINTF "Letter is $SEARCH name is $FILE\n"
             #FOUND=$(grep -i "^[A-Z] $SEARCH $FILE")
-            FOUND=$(grep -i "^$SEARCH $FILE")
-            #$PRINTF "It is $FOUND"
-            if [[ -z "$FOUND" ]] ; then
-                $PRINTF "Sorry, no entry found\n"
+	    FOUND=$(grep -i "^[A-Z]" $FILE)
+
+            if [[ "$SEARCH == $FOUND" ]] ; then
+		    $PRINTF "Hooray!"                                       grep -i "^[A-Z][$SEARCH]" $FILE  | while read -r line ; do                                                        i=$(( i + 1 ))                                          $PRINTF "$i $line\n"
+	    done
             else
-                $PRINTF "Hooray!"
-                grep -i "^$SEARCH $FILE" | while read -r line ; do
-                i=$(( i + 1 ))
-                $PRINTF "$i $line\n"
-            done
+
+		$PRINTF "Sorry, no entry found\n"
+	    
            ###############The rest of it works fine##################
             fi
             $SLEEP 3
